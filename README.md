@@ -1,4 +1,11 @@
 # Blisgo
+- 홈페이지 링크 : www.blisgo.com  
+- 현재 스택 : 워드프레스, PHP, MYSQL, 카페24  
+- 변경중인 스택
+  - 프론트엔드 : Next.js, TypeScript, Tailwind, Vercel
+  - 백엔드 : Strapi(Koa), PostgreSQL, Heroku
+
+---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
