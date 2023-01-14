@@ -1,15 +1,15 @@
-import { Hero } from "../components/hero";
+import { Hero } from "../components/home/hero";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Card } from "../components/card";
-import { Item } from "../components/item";
-import { News } from "../components/news";
-import { Shop } from "../components/shop";
+import { Card } from "../components/home/card";
+import { Item } from "../components/home/item";
+import { News } from "../components/home/news";
+import { Shop } from "../components/home/shop";
 import { fetchAPI } from "../lib/api";
 
 interface HomeProps {
   categories: {
-    id: string;
+    id: number;
     attributes: {
       name: string;
     };
@@ -24,7 +24,7 @@ const Home: NextPage<HomeProps> = ({ categories }) => {
       <section className="section_common mt-0">
         <div className="grid grid-cols-6 md:grid-cols-12 gap-4 xl:mx-[80px] justify-between overflow-auto pb-6">
           {categories.map((category) => (
-            <Item key={category.id} categoryName={category.attributes.name} />
+            <Item key={category.id} id={category.id} categoryName={category.attributes.name} />
           ))}
         </div>
       </section>

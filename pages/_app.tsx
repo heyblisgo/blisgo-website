@@ -1,10 +1,10 @@
 import "/styles/tailwindcss.css";
 import "/styles/globals.css";
 import type { AppProps } from "next/app";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../components/home/header";
+import Footer from "../components/home/footer";
 import Head from "next/head";
-import MobileHeader from "../components/mobile-header";
+import MobileHeader from "../components/home/mobile-header";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

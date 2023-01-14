@@ -1,4 +1,4 @@
-import { fetchAPI } from "../lib/api";
+import { fetchAPI } from "../../lib/api";
 // import { getStrapiMedia } from "../lib/media";
 
 const Test = ({ categories }) => {
