@@ -14,10 +14,12 @@ export const Item: React.FC<React.PropsWithChildren<ItemProps>> = ({ id, categor
   return (
     <>
       <div className="flex flex-col gap-2 md:gap-4 shrink-0 items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <Link href="#">
-          <a className="relative shrink-0 w-12 h-12">
-            {isHovering ? <Image src={`/assets/category/${id}-hover.svg`} layout="fill" /> : <Image src={`/assets/category/${id}.svg`} layout="fill" />}
-          </a>
+        <Link href="#" className="relative shrink-0 w-12 h-12">
+          {isHovering ? (
+            <Image src={`/assets/category/${id}-hover.svg`} fill alt={`${categoryName} hover icon`} />
+          ) : (
+            <Image src={`/assets/category/${id}.svg`} fill alt={`${categoryName} icon`} />
+          )}
         </Link>
         <h4 className="text-body3 text-darkgrey-1"> {categoryName}</h4>
       </div>

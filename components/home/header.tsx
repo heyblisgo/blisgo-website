@@ -5,7 +5,7 @@ const Header = () => {
     <>
       <nav className="px-4 md:p-6 flex items-center justify-between gap-8">
         <div className="relative flex items-center shrink-0 w-[76.96px] h-[40px] md:w-[7.25rem] md:h-[3.75rem]">
-          <Image className="absolute" src="/assets/main-logo.svg" alt="main logo" objectFit="contain" layout="fill"></Image>
+          <Image className="absolute object-contain" src="/assets/main-logo.svg" alt="main logo" fill />
         </div>
         <div className="hidden md:flex w-full max-w-[37.25rem] border-yellow-green border rounded-lg h-12 gap-2 items-center pl-4">
           <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
