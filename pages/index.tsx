@@ -28,11 +28,6 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
-  console.log(categories);
-  console.log(updatedTrash);
-  console.log(updatedTrash[1].attributes);
-  console.log(updatedTrash[1].attributes.media);
-  console.log(updatedTrash[1].attributes.media.data[0].attributes.url);
   const newsList = [
     "https://www.instagram.com/p/CowGRysvXqA/",
     "https://www.instagram.com/p/CeZ_Jwzr5VO/",
