@@ -19,6 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <div className="md:hidden block h-[56px]">
           <MobileHeader />
         </div>
+        <Footer />
       </div>
     </>
   );

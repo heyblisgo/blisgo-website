@@ -40,6 +40,10 @@ module.exports = {
           2: "#f0f0f0",
           3: "#DDDDDD",
         },
+        stackgrey: {
+          1: "#E9E9E9",
+          2: "#D9D9D9",
+        },
         white: "#ffffff",
       },
       boxShadow: {
