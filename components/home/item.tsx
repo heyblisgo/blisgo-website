@@ -21,7 +21,7 @@ export const Item: React.FC<React.PropsWithChildren<ItemProps>> = ({ id, categor
             <Image src={`/assets/category/${id}.svg`} fill alt={`${categoryName} icon`} />
           )}
         </Link>
-        <h4 className="text-body3 text-darkgrey-1"> {categoryName}</h4>
+        <h4 className="text-body3 text-darkgrey-1 break-keep text-center"> {categoryName}</h4>
       </div>
     </>
   );

@@ -27,9 +27,9 @@ module.exports = {
         error: "#DB2424",
         black: "#000000",
         darkgrey: {
-          1: "#242424",
+          1: "#777777",
           2: "#555555",
-          3: "#777777",
+          3: "#242424",
         },
         grey: {
           1: "#cccccc",
@@ -69,4 +69,8 @@ module.exports = {
     },
   },
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
+  daisyui: {
+    themes: false,
+  },
 };

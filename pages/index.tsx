@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
       {/* hero section, search bar, popular keyword, */}
       <Hero />
       <section className="section_common mt-0">
-        <div className="grid grid-cols-6 md:grid-cols-12 gap-4 xl:mx-[80px] justify-between overflow-auto pb-6">
+        <div className="grid grid-cols-6 md:grid-cols-11 gap-4 justify-between overflow-auto pb-6">
           {categories.map((category) => (
             <Item key={category.id} id={category.id} categoryName={category.attributes.name} />
           ))}

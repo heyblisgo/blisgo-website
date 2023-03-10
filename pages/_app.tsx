@@ -15,10 +15,10 @@ const App = ({ Component, pageProps }: AppProps) => {
       <div className="xl:mx-auto xl:w-[1280px]">
         <Header />
         <Component {...pageProps} />
-        <div className="md:hidden block h-[56px]">
+        <Footer />
+        <div className="md:hidden block h-[56px] bg-lightgrey-1">
           <MobileHeader />
         </div>
-        <Footer />
       </div>
     </>
   );
