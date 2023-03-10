@@ -109,12 +109,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
 export default Home;
 
 export async function getStaticProps() {
-  const categoriesRes = await fetchAPI("/category-larges", {
-    populate: {
-      id: "*",
-      name: "*",
-    },
-  });
+  const categoriesRes = await fetchAPI("/category-larges?sort=id");
   const updatedTrashRes = await fetchAPI(
     "/trash-wikis?fields[0]=name&fields[0]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
   );

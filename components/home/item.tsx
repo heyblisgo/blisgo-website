@@ -14,7 +14,7 @@ export const Item: React.FC<React.PropsWithChildren<ItemProps>> = ({ id, categor
   return (
     <>
       <div className="flex flex-col gap-2 md:gap-4 shrink-0 items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-        <Link href="#" className="relative shrink-0 w-12 h-12">
+        <Link href={`/category/#${id}`} className="relative shrink-0 w-12 h-12">
           {isHovering ? (
             <Image src={`/assets/category/${id}-hover.svg`} fill alt={`${categoryName} hover icon`} />
           ) : (
