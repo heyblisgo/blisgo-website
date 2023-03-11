@@ -17,10 +17,16 @@ const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
             </h2>
             <div className="mx-auto w-fit">
               <div className="grid grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
-                {category.categorySmall.map((item, idx) => (
+                {category.trashWikis.map((item, idx) => (
                   <div key={idx} className="cursor-pointer">
                     <div className="bg-gray-400 w-20 h-20 rounded-full relative">
-                      {item.thumbnailUrl && <Image src={item.thumbnailUrl} alt={item.name} fill className="absolute object-contain rounded-full" />}
+                      <Image
+                        src={item.mediaData[0].attributes.formats.thumbnail.url}
+                        alt={item.name}
+                        fill
+                        className="absolute object-contain rounded-full"
+                        sizes="156px"
+                      />
                     </div>
                     <p key={idx} className="text-body2 text-darkgrey-3 text-center w-20 break-keep pt-1">
                       {item.name}
@@ -42,17 +48,17 @@ interface CategoryRes {
   id: number;
   attributes: {
     name: string;
-    category_smalls: {
+    trash_wikis: {
       data: {
         id: number;
         attributes: {
           name: string;
-          category_thumb: {
+          media: {
             data: {
               attributes: {
                 formats: { thumbnail: { url: string } };
               };
-            };
+            }[];
           };
         };
       }[];
@@ -63,14 +69,18 @@ interface CategoryRes {
 interface Category {
   id: string;
   name: string;
-  categorySmall: {
+  trashWikis: {
     name: string;
-    thumbnailUrl: string;
+    mediaData: {
+      attributes: {
+        formats: { thumbnail: { url: string } };
+      };
+    }[];
   }[];
 }
 
 export async function getStaticProps() {
-  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[0]=category_smalls&populate[1]=category_smalls.category_thumb")) as {
+  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[1]=trash_wikis.media")) as {
     data: CategoryRes[];
   };
 
@@ -79,9 +89,9 @@ export async function getStaticProps() {
       categories: categoriesRes.data.map((categoryRes) => ({
         id: categoryRes.id,
         name: categoryRes.attributes.name,
-        categorySmall: categoryRes.attributes.category_smalls.data.map((category) => ({
-          name: category.attributes.name,
-          thumbnailUrl: category.attributes.category_thumb.data?.attributes.formats.thumbnail.url ?? "",
+        trashWikis: categoryRes.attributes.trash_wikis.data.map((wiki) => ({
+          name: wiki.attributes.name,
+          mediaData: wiki.attributes.media.data,
         })),
       })),
     },
