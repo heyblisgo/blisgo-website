@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { fetchAPI } from "../lib/api";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CategoryProps {
   categories: Category[];
@@ -18,7 +19,7 @@ const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
             <div className="mx-auto w-fit">
               <div className="grid grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
                 {category.trashWikis.map((item, idx) => (
-                  <div key={idx} className="cursor-pointer">
+                  <Link key={idx} className="cursor-pointer" href={`wiki/${item.id}`}>
                     <div className="bg-gray-400 w-20 h-20 rounded-full relative">
                       <Image
                         src={item.mediaData[0].attributes.formats.thumbnail.url}
@@ -31,7 +32,7 @@ const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
                     <p key={idx} className="text-body2 text-darkgrey-3 text-center w-20 break-keep pt-1">
                       {item.name}
                     </p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -45,12 +46,12 @@ const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
 export default CategoryPage;
 
 interface CategoryRes {
-  id: number;
+  id: string;
   attributes: {
     name: string;
     trash_wikis: {
       data: {
-        id: number;
+        id: string;
         attributes: {
           name: string;
           media: {
@@ -70,6 +71,7 @@ interface Category {
   id: string;
   name: string;
   trashWikis: {
+    id: string;
     name: string;
     mediaData: {
       attributes: {
@@ -90,6 +92,7 @@ export async function getStaticProps() {
         id: categoryRes.id,
         name: categoryRes.attributes.name,
         trashWikis: categoryRes.attributes.trash_wikis.data.map((wiki) => ({
+          id: wiki.id,
           name: wiki.attributes.name,
           mediaData: wiki.attributes.media.data,
         })),

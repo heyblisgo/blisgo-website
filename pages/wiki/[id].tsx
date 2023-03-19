@@ -1,15 +1,21 @@
+import { fetchAPI } from "@/lib/api";
 import type { NextPage } from "next";
+import Image from "next/image";
 
-const WikiPage: NextPage = () => {
+interface WikiProps {
+  wiki: Wiki;
+}
+const WikiPage: NextPage<WikiProps> = ({ wiki }) => {
   return (
     <>
       <main className="xl:mx-[120px] md:mx-auto md:px-6 md:py-4 flex flex-col gap-y-12 bg-lightgrey-1 md:bg-inherit">
         <section className="justify-center grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full md:max-w-[992px] md:mx-auto">
           {/* image */}
           <div className="bg-slate-100 aspect-square md:rounded-2xl relative">
+            <Image src={wiki.image} fill className="aspect-square md:rounded-2xl" alt={`${wiki.name}`} />
             <div className="absolute flex justify-between bottom-0 items-center w-full px-5 pb-5">
               <button className="flex gap-[6px] justify-center items-center bg-white bg-opacity-90 shadow-md rounded-lg p-2">
-                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width={21} height={20} viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M19.4694 13.2083C18.9945 13.0612 18.5046 13.2053 18.2278 13.6737C18.2278 13.6737 17.2563 15.3549 17.0467 15.7247L4.87797 15.7163L5.52943 16.2813C6.61439 17.2222 8.68345 19.0156 9.17459 19.4377C9.38751 19.6262 9.66367 19.7274 9.94794 19.7211C10.1115 19.7163 10.2714 19.6711 10.4133 19.5896C11.0209 19.239 11.1152 18.3816 10.5934 17.9175C10.5387 17.8733 10.4809 17.8332 10.4205 17.7974L18.25 17.801L19.8711 14.9862C19.9834 14.7905 20.1113 14.6019 20.1473 14.366C20.2272 13.861 19.9558 13.3591 19.4694 13.2083Z"
                     fill="black"
@@ -22,11 +28,13 @@ const WikiPage: NextPage = () => {
                     d="M8.18632 1.87748C8.29619 2.36202 8.66665 2.71447 9.21004 2.71807C9.21004 2.71807 11.1512 2.71807 11.5769 2.71387L17.6598 13.2555L17.8231 12.4083C18.0951 10.9979 18.6126 8.3092 18.7315 7.67275C18.7884 7.39405 18.738 7.10415 18.5904 6.86098C18.5041 6.72193 18.3849 6.60625 18.2434 6.52415C17.6352 6.1735 16.8462 6.52114 16.7039 7.20262C16.692 7.27248 16.6854 7.34312 16.6841 7.41397L12.7717 0.634605H9.52165C9.2959 0.634605 9.06894 0.618393 8.84618 0.706055C8.37185 0.894588 8.07344 1.38093 8.18632 1.87748Z"
                     fill="black"
                   />
-                  <path d="M10.4111 6.42749V9.92749M10.4111 12.9275V13.0525" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M10.4111 6.42749V9.92749M10.4111 12.9275V13.0525" stroke="black" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
 
-                <span className="md:text-label2 text-label3 text-darkgrey-2">대형 생활폐기물</span>
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <span className="md:text-label2 text-label3 text-darkgrey-2">{wiki.sort_trashes}</span>
+                {/* todo : add dropdown */}
+                {/* <span>{wiki.description}</span> */}
+                <svg width={17} height={17} viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M8.42076 5.38499C7.78274 5.35461 7.24774 5.71101 7.15174 6.28701C7.09121 6.65019 6.74772 6.89554 6.38454 6.83501C6.02136 6.77448 5.77601 6.43099 5.83654 6.06781C6.07388 4.64381 7.3722 4.00021 8.48418 4.05316C9.05379 4.08029 9.63918 4.28474 10.0899 4.70593C10.5519 5.13759 10.8275 5.75592 10.8275 6.51074C10.8275 7.37161 10.4887 8.01002 9.90561 8.39878C9.57476 8.61934 9.19775 8.73735 8.82747 8.79533V8.84408C8.82747 9.21227 8.529 9.51074 8.16081 9.51074C7.79262 9.51074 7.49414 9.21227 7.49414 8.84408V8.17741C7.49414 7.80922 7.79262 7.51074 8.16081 7.51074C8.60779 7.51074 8.95144 7.43242 9.16601 7.28938C9.33287 7.17813 9.49414 6.98321 9.49414 6.51074C9.49414 6.0989 9.35307 5.84223 9.1796 5.68014C8.99494 5.50758 8.72616 5.39953 8.42076 5.38499Z"
                     fill="#999999"
@@ -36,8 +44,8 @@ const WikiPage: NextPage = () => {
                     fill="#999999"
                   />
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M1.49414 8.17741C1.49414 4.49551 4.47891 1.51074 8.16081 1.51074C11.8427 1.51074 14.8275 4.49551 14.8275 8.17741C14.8275 11.8593 11.8427 14.8441 8.16081 14.8441C4.47891 14.8441 1.49414 11.8593 1.49414 8.17741ZM8.16081 2.84408C5.21529 2.84408 2.82747 5.23189 2.82747 8.17741C2.82747 11.1229 5.21529 13.5107 8.16081 13.5107C11.1063 13.5107 13.4941 11.1229 13.4941 8.17741C13.4941 5.23189 11.1063 2.84408 8.16081 2.84408Z"
                     fill="#999999"
                   />
@@ -45,7 +53,7 @@ const WikiPage: NextPage = () => {
               </button>
               {/* mobile share button */}
               <button className="md:hidden">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g filter="url(#filter0_d_1842_4666)">
                     <path
                       d="M12.7071 2.29289C12.3166 1.90237 11.6834 1.90237 11.2929 2.29289L8.29289 5.29289C7.90237 5.68342 7.90237 6.31658 8.29289 6.70711C8.68342 7.09763 9.31658 7.09763 9.70711 6.70711L11 5.41421V15C11 15.5523 11.4477 16 12 16C12.5523 16 13 15.5523 13 15V5.41421L14.2929 6.70711C14.6834 7.09763 15.3166 7.09763 15.7071 6.70711C16.0976 6.31658 16.0976 5.68342 15.7071 5.29289L12.7071 2.29289Z"
@@ -57,11 +65,11 @@ const WikiPage: NextPage = () => {
                     />
                   </g>
                   <defs>
-                    <filter id="filter0_d_1842_4666" x="-0.5" y="-2" width="25" height="28" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <filter id="filter0_d_1842_4666" x="-0.5" y={-2} width={25} height={28} filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                      <feFlood floodOpacity={0} result="BackgroundImageFix" />
                       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
                       <feOffset />
-                      <feGaussianBlur stdDeviation="2" />
+                      <feGaussianBlur stdDeviation={2} />
                       <feComposite in2="hardAlpha" operator="out" />
                       <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
                       <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1842_4666" />
@@ -76,7 +84,7 @@ const WikiPage: NextPage = () => {
           <div className="flex flex-col gap-4 xl:pt-[22px] px-2 py-6">
             <div className="p-4 md:flex flex-col gap-8 hidden">
               <div className="flex justify-between items-center">
-                <h1 className="text-display2 font-extrabold text-darkgrey-3">이불</h1>
+                <h1 className="text-display2 font-extrabold text-darkgrey-3">{wiki.name}</h1>
                 <button className="items-center justify-between bg-lightgrey-2 rounded-3xl p-2 gap-1 flex">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -91,29 +99,48 @@ const WikiPage: NextPage = () => {
                   <p className="text-label2 text-darkgrey-3">공유하기</p>
                 </button>
               </div>
-              <p className="text-title3 font-bold text-darkgrey-2">#천일염 #맛소금</p>
+              <p className="text-title3 font-bold text-darkgrey-2">
+                {wiki.tags.map((tag, idx) => (
+                  <span key={idx}>#{tag}&nbsp; </span>
+                ))}
+              </p>
             </div>
             {/* collapse group */}
             <div className="flex flex-col gap-y-2">
               <article tabIndex={0} className="collapse collapse-arrow md:border md:border-base-300 bg-white rounded-lg">
                 <input type="checkbox" className="peer" defaultChecked />
                 <h2 className="collapse-title text-title1 font-semibold text-darkgrey-3">버리는 방법</h2>
-                <p className="collapse-content text-body1 text-darkgrey-2">
-                  홑이불, 담요, 누비이불 등 부피가 작은 침구류는 의류수거함에 넣거나 일반쓰레기(종량제봉투)로 버려요. 솜이불, 오리털이불, 베개 등 부피가 큰
-                  침구류는 잘라서 일반쓰레기(종량제봉투)로 버리거나 대형 생활 폐기물로 신고 배출해주세요.
-                </p>
+                <ul className="collapse-content text-body1 text-darkgrey-2 break-after-auto">
+                  {wiki.process.map((txt, idx) => (
+                    <li key={idx} className="pb-2">
+                      {txt}
+                    </li>
+                  ))}
+                </ul>
               </article>
 
               <article tabIndex={0} className="collapse collapse-arrow md:border md:border-base-300 bg-white rounded-lg">
-                <input type="checkbox" className="peer" />
+                <input type="checkbox" className="peer" defaultChecked />
                 <h2 className="collapse-title text-title1 font-semibold text-darkgrey-3">알면 더 도움되는 팁</h2>
-                <p className="collapse-content text-body1 text-darkgrey-2">내용</p>
+                <ul className="collapse-content text-body1 text-darkgrey-2">
+                  {wiki.tip.map((txt, idx) => (
+                    <li key={idx} className="pb-2">
+                      {txt}
+                    </li>
+                  ))}
+                </ul>
               </article>
 
               <article tabIndex={0} className="collapse collapse-arrow md:border md:border-base-300 bg-white rounded-lg">
-                <input type="checkbox" className="peer" />
+                <input type="checkbox" className="peer" defaultChecked />
                 <h2 className="collapse-title text-title1 font-semibold text-darkgrey-3">자주 묻는 질문</h2>
-                <p className="collapse-content text-body1 text-darkgrey-2">내용</p>
+                <ul className="collapse-content text-body1 text-darkgrey-2">
+                  {wiki.qna.map((txt, idx) => (
+                    <li key={idx} className="pb-2">
+                      {txt}
+                    </li>
+                  ))}
+                </ul>
               </article>
             </div>
           </div>
@@ -143,4 +170,39 @@ const WikiPage: NextPage = () => {
   );
 };
 
+interface Wiki {
+  id: string;
+  name: string;
+  tags: string[];
+  recycle: boolean;
+  process: string[];
+  tip: string[];
+  qna: string[];
+  sort_trashes: string;
+  description: string;
+  image: string;
+}
+
+export async function getServerSideProps({ params }: { params: { id: string } }) {
+  const { data: wikiRes } = await fetchAPI(`/trash-wikis/${params.id}?populate=*`);
+
+  const { attributes } = wikiRes;
+
+  return {
+    props: {
+      wiki: {
+        id: wikiRes.id,
+        name: attributes.name,
+        tags: attributes.tags?.split(",") ?? [],
+        recycle: attributes.recycle,
+        process: attributes?.process.split("\n\n") ?? [],
+        tip: attributes.tip?.split("\n\n") ?? [],
+        qna: attributes.qna?.split("\n\n") ?? [],
+        sort_trashes: attributes.sort_trashes.data[0].attributes.name,
+        description: attributes.sort_trashes.data[0].attributes.description,
+        image: attributes.media.data[0].attributes.formats.small.url,
+      },
+    },
+  };
+}
 export default WikiPage;
