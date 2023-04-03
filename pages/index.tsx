@@ -74,7 +74,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
         <div className="flex gap-4 overflow-auto pb-10">
           {updatedTrash.map((trash, idx) => (
             <div className="flex flex-col items-center gap-1" key={idx}>
-              <div className="shrink-0 w-[48px] h-[48px] md:w-[296px] md:h-[96px] border border-lightgrey-3 rounded-lg relative">
+              <div className="shrink-0 w-[48px] h-[48px] md:w-[160px] md:h-[160px] border border-lightgrey-3 rounded-lg relative">
                 <Image
                   src={trash.attributes.media.data[0].attributes.url}
                   fill
