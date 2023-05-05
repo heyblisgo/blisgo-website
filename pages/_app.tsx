@@ -12,13 +12,11 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Blisgo</title>
       </Head>
-      <div className="xl:mx-auto xl:w-[1280px]">
-        <Header />
-        <Component {...pageProps} />
-        <Footer />
-        <div className="md:hidden block h-[56px] bg-lightgrey-1">
-          <MobileHeader />
-        </div>
+      <Header />
+      <Component {...pageProps} />
+      <Footer />
+      <div className="md:hidden block h-[56px] bg-lightgrey-1">
+        <MobileHeader />
       </div>
     </>
   );

@@ -4,7 +4,7 @@
 
 @layer components {
   .section_common{
-    @apply mt-4 bg-white pt-8 px-6 border-b-[16px] border-lightgrey-1;
+    @apply mt-4 bg-white pt-8 px-6 xl:mx-auto xl:w-[1280px];
   }
   .section_title{
     @apply font-bold md:text-title1 text-darkgrey-1 pb-6

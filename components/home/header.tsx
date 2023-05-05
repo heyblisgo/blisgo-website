@@ -4,7 +4,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <>
-      <nav className="px-4 md:p-6 flex items-center justify-between gap-8">
+      <nav className="xl:mx-auto xl:w-[1280px] px-4 md:p-6 flex items-center justify-between gap-8">
         <Link href="/" className="relative flex items-center shrink-0 w-[76.96px] h-[40px] md:w-[7.25rem] md:h-[3.75rem]">
           <Image className="absolute object-contain" src="/assets/main-logo.svg" alt="main logo" fill />
         </Link>

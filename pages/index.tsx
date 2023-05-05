@@ -57,6 +57,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
           ))}
         </div>
       </section>
+      <hr className="h-4 bg-lightgrey-1 border-none" />
       <section className="section_common">
         <h2 className="section_title">블리스고 새소식</h2>
         <div className="flex gap-4 overflow-auto pb-10">
@@ -69,6 +70,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
           ))}
         </div>
       </section>
+      <hr className="h-4 bg-lightgrey-1 border-none" />
       <section className="section_common">
         <h2 className="section_title">업데이트된 쓰레기</h2>
         <div className="flex gap-4 overflow-auto pb-10">
@@ -87,6 +89,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
           ))}
         </div>
       </section>
+      <hr className="h-4 bg-lightgrey-1 border-none" />
       <section className="section_common">
         <h2 className="section_title">쓰레기 없는 가게</h2>
         <div className="flex gap-4 overflow-auto pb-6">
