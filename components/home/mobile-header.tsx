@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const MobileHeader = () => {
   return (
     <>
@@ -12,7 +14,9 @@ const MobileHeader = () => {
               strokeLinecap="round"
             />
           </svg>
-          <h5 className="pt-1 text-label3 text-primary-green">홈</h5>
+          <Link className="pt-1 text-label3 text-primary-green" href="/">
+            홈
+          </Link>
         </button>
         <button className="flex flex-col items-center">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +27,9 @@ const MobileHeader = () => {
             />
             <path d="M1.99023 20.5V8.6582H7.27707V20.5H1.99023Z" stroke="#777777" strokeWidth="2" />
           </svg>
-          <h5 className="pt-1 text-label3 text-darkgrey-3">큐레이션</h5>
+          <Link className="pt-1 text-label3 text-darkgrey-3" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
+            큐레이션
+          </Link>
         </button>
         <button className="flex flex-col items-center">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,7 +41,9 @@ const MobileHeader = () => {
               fill="#999999"
             />
           </svg>
-          <h5 className="pt-1 text-label3 text-darkgrey-3">커뮤니티</h5>
+          <Link className="pt-1 text-label3 text-darkgrey-3" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
+            커뮤니티
+          </Link>
         </button>
       </div>
     </>

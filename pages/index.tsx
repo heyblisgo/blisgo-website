@@ -75,7 +75,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
         <h2 className="section_title">업데이트된 쓰레기</h2>
         <div className="flex gap-4 overflow-auto pb-10">
           {updatedTrash.map((trash, idx) => (
-            <div className="flex flex-col items-center gap-1" key={idx}>
+            <a className="flex flex-col items-center gap-1" key={`updated-trash-${idx}`} href={`/wiki/${trash.id}`}>
               <div className="shrink-0 w-[48px] h-[48px] md:w-[160px] md:h-[160px] border border-lightgrey-3 rounded-lg relative">
                 <Image
                   src={trash.attributes.media.data[0].attributes.url}
@@ -85,7 +85,7 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
                 />
               </div>
               <h4 className=" text-darkgrey-1 text-body3">{trash.attributes.name}</h4>
-            </div>
+            </a>
           ))}
         </div>
       </section>

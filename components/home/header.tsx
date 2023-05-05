@@ -27,17 +27,23 @@ const Header = () => {
         <div className="hidden md:flex items-center shrink-0">
           <ul className="flex gap-6 text-center text-darkgrey-2 text-title3 font-bold">
             <li>
-              <a href="https://blisgo.com/community/">큐레이션</a>
+              <Link href="https://blisgo.com/community/" target="_blank" rel="noopener noreferrer">
+                큐레이션
+              </Link>
             </li>
             <li>
-              <a href="https://blisgo.com/community/">커뮤니티</a>
+              <Link href="https://blisgo.com/community/" target="_blank" rel="noopener noreferrer">
+                커뮤니티
+              </Link>
             </li>
             <li>
-              <a href="https://blisgo.com/community/">마이페이지</a>
+              <Link href="https://blisgo.com/community/" target="_blank" rel="noopener noreferrer">
+                마이페이지
+              </Link>
             </li>
           </ul>
         </div>
-        <button className="md:hidden">
+        <button className="md:hidden py-[18px]">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               fillRule="evenodd"
