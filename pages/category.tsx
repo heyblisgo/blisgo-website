@@ -10,7 +10,7 @@ interface CategoryProps {
 const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
   return (
     <>
-      <main className="xl:mx-auto xl:w-[1280px] md:mx-10 mx-4">
+      <main className="xl:mx-[120px] xl:w-[1280px] md:mx-10 mx-4 2xl:mx-auto">
         {categories.map((category, idx) => (
           <article key={idx} className="md:pb-20 pt-6 pb-10">
             <h2 id={String(category.id)} className="md:pb-10 pb-6 text-display3 font-extrabold" key={category.id}>
