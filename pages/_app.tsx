@@ -13,6 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>Blisgo</title>
       </Head>
       <Header />
+      <hr className="border-none bg-lightgrey-2 h-[1px]" />
       <Component {...pageProps} />
       <Footer />
       <div className="md:hidden block h-[56px] bg-lightgrey-1">

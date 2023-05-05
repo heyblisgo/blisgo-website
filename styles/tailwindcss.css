@@ -7,6 +7,6 @@
     @apply mt-4 bg-white pt-8 px-6 xl:mx-auto xl:w-[1280px];
   }
   .section_title{
-    @apply font-bold md:text-title1 text-darkgrey-1 pb-6
+    @apply font-bold md:text-title1 text-darkgrey-3 pb-6
   }
 }
