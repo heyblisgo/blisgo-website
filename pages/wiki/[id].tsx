@@ -2,6 +2,7 @@ import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { SortTrashButton } from "@/components/wiki/sort-trash";
 import { fetchAPI } from "@/lib/api";
 import type { NextPage } from "next";
+import { NextSeo } from "next-seo";
 import Image from "next/image";
 
 interface WikiProps {
@@ -10,6 +11,28 @@ interface WikiProps {
 const WikiPage: NextPage<WikiProps> = ({ wiki }) => {
   return (
     <>
+      <NextSeo
+        title={wiki.name}
+        titleTemplate={"%s 분리수거"}
+        description={`${wiki.name} 분리수거 방법`}
+        canonical={"https://blisgo-website.vercel.app/"}
+        openGraph={{
+          type: "website",
+          locale: "ko_KR",
+          url: `https://blisgo-website.vercel.app/wiki/${wiki.id}`,
+          title: `${wiki.name} 분리수거`,
+          description: `${wiki.name} 분리수거 방법`,
+          images: [
+            {
+              url: wiki.image,
+              width: 600,
+              height: 400,
+              alt: `${wiki.name} image`,
+            },
+          ],
+          siteName: "blisgo",
+        }}
+      />
       <main className="xl:mx-[120px] md:mx-auto md:px-6 md:py-4 flex flex-col gap-y-12 bg-lightgrey-1 md:bg-inherit">
         <section className="justify-center grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full md:max-w-[992px] md:mx-auto">
           {/* image */}

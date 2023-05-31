@@ -5,10 +5,33 @@ import Header from "../components/home/header";
 import Footer from "../components/home/footer";
 import Head from "next/head";
 import MobileHeader from "../components/home/mobile-header";
+import { DefaultSeo } from "next-seo";
+
+const DEFAULT_SEO = {
+  title: "blisgo",
+  description: "분리수거를 바르게, 블리스고입니다",
+  canonical: "https://blisgo-website.vercel.app/",
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "https://blisgo-website.vercel.app/",
+    title: "blisgo",
+    site_name: "blisgo",
+    images: [
+      {
+        url: "https://blisgo-website.vercel.app/assets/footer-img-logo.svg",
+        width: 285,
+        height: 167,
+        alt: "blisgo icon",
+      },
+    ],
+  },
+};
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
+      <DefaultSeo {...DEFAULT_SEO} />
       <Head>
         <title>Blisgo</title>
       </Head>
