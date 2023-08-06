@@ -1,0 +1,26 @@
+export interface News {
+  id: string;
+  attributes: {
+    title: string;
+    contents: string;
+    published: string;
+    media: {
+      data: {
+        id: string;
+        attributes: {
+          formats: { small: { url: string } };
+        };
+      }[];
+    };
+  };
+}
+export interface NewsList {
+  data: News[];
+  meta: {
+    pagination: {
+      limit: number;
+      start: number;
+      total: number;
+    };
+  };
+}

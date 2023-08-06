@@ -1,9 +1,10 @@
 import { Pagination } from "@/components/global/pagination";
 import { Article } from "@/components/news/article";
 import { fetchAPI } from "@/lib/api";
-import { NextPage } from "next";
+import { NewsList } from "@/types/news";
 
-const NewsPage: NextPage<NewsListProps> = ({ newsList }) => {
+export default async function Page() {
+  const newsList: NewsList = await fetchAPI("/newsinfos?pagination[limit]=9&populate[0]=media&sort=id&pagination[start]=0");
   return (
     <>
       <main className="md:mx-10 mx-4 md:mt-6 md:mb-20 mt-6 mb-8 md:px-6 md:py-4 xl:mx-auto xl:w-[1280px]">
@@ -20,45 +21,4 @@ const NewsPage: NextPage<NewsListProps> = ({ newsList }) => {
       </main>
     </>
   );
-};
-
-export default NewsPage;
-
-export interface News {
-  id: string;
-  attributes: {
-    title: string;
-    contents: string;
-    published: string;
-    media: {
-      data: {
-        id: string;
-        attributes: {
-          formats: { small: { url: string } };
-        };
-      }[];
-    };
-  };
-}
-export interface NewsListProps {
-  newsList: {
-    data: News[];
-    meta: {
-      pagination: {
-        limit: number;
-        start: number;
-        total: number;
-      };
-    };
-  };
-}
-
-export async function getStaticProps() {
-  const newsList = await fetchAPI("/newsinfos?pagination[limit]=9&populate[0]=media&sort=id&pagination[start]=0");
-
-  return {
-    props: {
-      newsList: newsList, //todo : 미디어에서 첫번째 이미지만 리턴
-    },
-  };
 }

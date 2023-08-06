@@ -1,38 +1,33 @@
 import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { SortTrashButton } from "@/components/wiki/sort-trash";
 import { fetchAPI } from "@/lib/api";
-import type { NextPage } from "next";
-import { NextSeo } from "next-seo";
+import { Wiki } from "@/types/wiki";
 import Image from "next/image";
 
-interface WikiProps {
-  wiki: Wiki;
-}
-const WikiPage: NextPage<WikiProps> = ({ wiki }) => {
+export default async function Page({ params }: { params: { id: string } }) {
+  const { data: wikiRes } = await fetchAPI(`/trash-wikis/${params.id}?populate[0]=media&populate[1]=sort_trashes.image`);
+
+  const { attributes } = wikiRes;
+
+  const wiki: Wiki = {
+    id: wikiRes.id,
+    name: attributes.name,
+    tags: attributes.tags?.split(",") ?? [],
+    recycle: attributes.recycle,
+    process: attributes?.process.split("\n\n") ?? [],
+    tip: attributes.tip?.split("\n\n") ?? [],
+    qna: attributes.qna?.split("\n\n") ?? [],
+    description: attributes.description,
+    image: attributes.media.data[0].attributes.formats.small.url,
+    sort: {
+      name: attributes.sort_trashes.data[0].attributes.name,
+      description: attributes.sort_trashes.data[0].attributes.description,
+      image: attributes.sort_trashes.data[0].attributes.image.data[0].attributes.url,
+    },
+  };
+
   return (
     <>
-      <NextSeo
-        title={wiki.name}
-        titleTemplate={"%s 분리수거"}
-        description={`${wiki.name} 분리수거 방법`}
-        canonical={"https://blisgo-website.vercel.app/"}
-        openGraph={{
-          type: "website",
-          locale: "ko_KR",
-          url: `https://blisgo-website.vercel.app/wiki/${wiki.id}`,
-          title: `${wiki.name} 분리수거`,
-          description: `${wiki.name} 분리수거 방법`,
-          images: [
-            {
-              url: wiki.image,
-              width: 600,
-              height: 400,
-              alt: `${wiki.name} image`,
-            },
-          ],
-          siteName: "blisgo",
-        }}
-      />
       <main className="xl:mx-[120px] md:mx-auto md:px-6 md:py-4 flex flex-col gap-y-12 bg-lightgrey-1 md:bg-inherit">
         <section className="justify-center grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full md:max-w-[992px] md:mx-auto">
           {/* image */}
@@ -105,50 +100,30 @@ const WikiPage: NextPage<WikiProps> = ({ wiki }) => {
       </main>
     </>
   );
-};
-
-interface Wiki {
-  id: string;
-  name: string;
-  tags: string[];
-  recycle: boolean;
-  process: string[];
-  tip: string[];
-  qna: string[];
-  description: string;
-  image: string;
-  sort: Sort;
 }
 
-interface Sort {
-  name: string;
-  description: string;
-  image: string;
-}
+/*
 
-export async function getServerSideProps({ params }: { params: { id: string } }) {
-  const { data: wikiRes } = await fetchAPI(`/trash-wikis/${params.id}?populate[0]=media&populate[1]=sort_trashes.image`);
-
-  const { attributes } = wikiRes;
-
-  return {
-    props: {
-      wiki: {
-        id: wikiRes.id,
-        name: attributes.name,
-        tags: attributes.tags?.split(",") ?? [],
-        recycle: attributes.recycle,
-        process: attributes?.process.split("\n\n") ?? [],
-        tip: attributes.tip?.split("\n\n") ?? [],
-        qna: attributes.qna?.split("\n\n") ?? [],
-        image: attributes.media.data[0].attributes.formats.small.url,
-        sort: {
-          name: attributes.sort_trashes.data[0].attributes.name,
-          description: attributes.sort_trashes.data[0].attributes.description,
-          image: attributes.sort_trashes.data[0].attributes.image.data[0].attributes.url,
-        },
+<NextSeo
+  title={wiki.name}
+  titleTemplate={"%s 분리수거"}
+  description={`${wiki.name} 분리수거 방법`}
+  canonical={"https://blisgo-website.vercel.app/"}
+  openGraph={{
+    type: "website",
+    locale: "ko_KR",
+    url: `https://blisgo-website.vercel.app/wiki/${wiki.id}`,
+    title: `${wiki.name} 분리수거`,
+    description: `${wiki.name} 분리수거 방법`,
+    images: [
+      {
+        url: wiki.image,
+        width: 600,
+        height: 400,
+        alt: `${wiki.name} image`,
       },
-    },
-  };
-}
-export default WikiPage;
+    ],
+    siteName: "blisgo",
+  }}
+/>;
+*/

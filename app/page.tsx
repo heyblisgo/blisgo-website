@@ -1,46 +1,22 @@
 import { Hero } from "../components/home/hero";
-import type { NextPage } from "next";
 import Image from "next/image";
 import { Item } from "../components/home/item";
 import { fetchAPI } from "../lib/api";
 import Link from "next/link";
-import { NewsListProps } from "./news";
+import { Category, UpdatedTrash } from "@/types/home";
+import { shopList } from "@/data/shopList";
+import { NewsList } from "@/types/news";
 
-interface HomeProps extends NewsListProps {
-  categories: {
-    id: number;
-    attributes: {
-      name: string;
-    };
-  }[];
-  updatedTrash: {
-    id: number;
-    attributes: {
-      name: string;
-      media: {
-        data: {
-          attributes: {
-            url: string;
-          };
-        }[];
-      };
-    };
-  }[];
-}
+export default async function Page() {
+  const categoriesRes = await fetchAPI("/category-larges?sort=id");
+  const updatedTrashRes = await fetchAPI(
+    "/trash-wikis?fields[0]=name&fields[0]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
+  );
+  const newsList: NewsList = await fetchAPI("/newsinfos?pagination[limit]=4&populate[0]=media&sort=id&pagination[start]=0");
 
-const Home: NextPage<HomeProps> = ({ categories, updatedTrash, newsList }) => {
-  const shopList = [
-    {
-      title: "덕분애",
-      link: "https://blisgo.com/%ec%a0%9c%eb%a1%9c%ec%9b%a8%ec%9d%b4%ec%8a%a4%ed%8a%b8%ec%83%b5/%eb%8d%95%eb%b6%84%ec%95%a0-%ec%a0%9c%eb%a1%9c%ec%9b%a8%ec%9d%b4%ec%8a%a4%ed%8a%b8%ec%83%b5/",
-    },
-    {
-      title: "슬기로운생활",
-      link: "https://blisgo.com/%ec%a0%9c%eb%a1%9c%ec%9b%a8%ec%9d%b4%ec%8a%a4%ed%8a%b8%ec%83%b5/%ec%8a%ac%ea%b8%b0%eb%a1%9c%ec%9a%b4%ec%83%9d%ed%99%9c/",
-    },
-    { title: "유민얼랏", link: "https://blisgo.com/%ec%a0%9c%eb%a1%9c%ec%9b%a8%ec%9d%b4%ec%8a%a4%ed%8a%b8%ec%83%b5/%ec%9c%a0%eb%af%bc%ec%96%bc%eb%9e%8f/" },
-    { title: "지구샵", link: "https://blisgo.com/%ec%a0%9c%eb%a1%9c%ec%9b%a8%ec%9d%b4%ec%8a%a4%ed%8a%b8%ec%83%b5/%ec%a7%80%ea%b5%ac%ec%83%b5/" },
-  ];
+  const categories: Category[] = categoriesRes.data;
+  const updatedTrash: UpdatedTrash[] = updatedTrashRes.data;
+
   return (
     <main className="flex flex-col">
       {/* hero section, search bar, popular keyword, */}
@@ -112,22 +88,4 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash, newsList }) => {
       </section>
     </main>
   );
-};
-
-export default Home;
-
-export async function getStaticProps() {
-  const categoriesRes = await fetchAPI("/category-larges?sort=id");
-  const updatedTrashRes = await fetchAPI(
-    "/trash-wikis?fields[0]=name&fields[0]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
-  );
-  const newsList = await fetchAPI("/newsinfos?pagination[limit]=4&populate[0]=media&sort=id&pagination[start]=0");
-
-  return {
-    props: {
-      categories: categoriesRes.data,
-      updatedTrash: updatedTrashRes.data,
-      newsList: newsList, //todo : 미디어에서 첫번째 이미지만 리턴
-    },
-  };
 }

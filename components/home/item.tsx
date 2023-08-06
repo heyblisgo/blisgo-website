@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -11,6 +12,8 @@ export const Item: React.FC<React.PropsWithChildren<ItemProps>> = ({ id, categor
   const [isHovering, setIsHovered] = useState(false);
   const onMouseEnter = () => setIsHovered(true);
   const onMouseLeave = () => setIsHovered(false);
+
+  // todo : css로 svg control
   return (
     <>
       <div className="flex flex-col gap-2 md:gap-4 shrink-0 items-center" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

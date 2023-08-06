@@ -1,13 +1,23 @@
-import type { NextPage } from "next";
-import { fetchAPI } from "../lib/api";
+import { fetchAPI } from "../../lib/api";
 import Image from "next/image";
 import Link from "next/link";
+import { CategoryRes } from "@/types/category";
 
-interface CategoryProps {
-  categories: Category[];
-}
+export default async function Page() {
+  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[1]=trash_wikis.media")) as {
+    data: CategoryRes[];
+  };
 
-const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
+  const categories = categoriesRes.data.map((categoryRes) => ({
+    id: categoryRes.id,
+    name: categoryRes.attributes.name,
+    trashWikis: categoryRes.attributes.trash_wikis.data.map((wiki) => ({
+      id: wiki.id,
+      name: wiki.attributes.name,
+      mediaData: wiki.attributes.media.data,
+    })),
+  }));
+
   return (
     <>
       <main className="xl:mx-[120px] xl:w-[1280px] md:mx-10 mx-4 2xl:mx-auto">
@@ -41,62 +51,4 @@ const CategoryPage: NextPage<CategoryProps> = ({ categories }) => {
       </main>
     </>
   );
-};
-
-export default CategoryPage;
-
-interface CategoryRes {
-  id: string;
-  attributes: {
-    name: string;
-    trash_wikis: {
-      data: {
-        id: string;
-        attributes: {
-          name: string;
-          media: {
-            data: {
-              attributes: {
-                formats: { thumbnail: { url: string } };
-              };
-            }[];
-          };
-        };
-      }[];
-    };
-  };
-}
-
-interface Category {
-  id: string;
-  name: string;
-  trashWikis: {
-    id: string;
-    name: string;
-    mediaData: {
-      attributes: {
-        formats: { thumbnail: { url: string } };
-      };
-    }[];
-  }[];
-}
-
-export async function getStaticProps() {
-  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[1]=trash_wikis.media")) as {
-    data: CategoryRes[];
-  };
-
-  return {
-    props: {
-      categories: categoriesRes.data.map((categoryRes) => ({
-        id: categoryRes.id,
-        name: categoryRes.attributes.name,
-        trashWikis: categoryRes.attributes.trash_wikis.data.map((wiki) => ({
-          id: wiki.id,
-          name: wiki.attributes.name,
-          mediaData: wiki.attributes.media.data,
-        })),
-      })),
-    },
-  };
 }

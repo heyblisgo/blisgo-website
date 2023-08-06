@@ -1,11 +1,16 @@
 import { Article } from "@/components/news/article";
 import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { fetchAPI } from "@/lib/api";
-import type { NextPage } from "next";
-import { News } from "@/pages/news";
+import { News } from "@/types/news";
 
-const NewsArticlePage: NextPage<News> = ({ id, attributes }) => {
-  const { title, contents, published, media } = attributes;
+export default async function Page({ params }: { params: { id: string } }) {
+  const news = await fetchAPI(`/newsinfos/${params.id}?populate[0]=media`);
+
+  const data: News = {
+    ...news.data, //todo : 미디어에서 첫번째 이미지만 리턴
+    // todo : contents에 \n 을 split
+  };
+  const { title, contents, published, media } = data.attributes;
 
   return (
     <>
@@ -60,17 +65,4 @@ const NewsArticlePage: NextPage<News> = ({ id, attributes }) => {
       </main>
     </>
   );
-};
-
-export default NewsArticlePage;
-
-export async function getServerSideProps({ params }: { params: { id: string } }) {
-  const news = await fetchAPI(`/newsinfos/${params.id}?populate[0]=media`);
-
-  return {
-    props: {
-      ...news.data, //todo : 미디어에서 첫번째 이미지만 리턴
-      // todo : contents에 \n 을 split
-    },
-  };
 }
