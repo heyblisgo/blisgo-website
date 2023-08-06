@@ -4,8 +4,9 @@ import Image from "next/image";
 import { Item } from "../components/home/item";
 import { fetchAPI } from "../lib/api";
 import Link from "next/link";
+import { NewsListProps } from "./news";
 
-interface HomeProps {
+interface HomeProps extends NewsListProps {
   categories: {
     id: number;
     attributes: {
@@ -27,13 +28,7 @@ interface HomeProps {
   }[];
 }
 
-const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
-  const newsList = [
-    "https://www.instagram.com/p/CowGRysvXqA/",
-    "https://www.instagram.com/p/CeZ_Jwzr5VO/",
-    "https://www.instagram.com/p/CY52Q6xjY92/",
-    "https://www.instagram.com/p/Ch7VwH1PIKZ/",
-  ];
+const Home: NextPage<HomeProps> = ({ categories, updatedTrash, newsList }) => {
   const shopList = [
     {
       title: "덕분애",
@@ -59,12 +54,17 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
       </section>
       <hr className="h-4 bg-lightgrey-1 border-none" />
       <section className="section_common">
-        <h2 className="section_title">블리스고 새소식</h2>
+        <div className="flex justify-between">
+          <h2 className="section_title">블리스고 새소식</h2>
+          <Link href="/news" className="text-label1 text-darkgrey-2">
+            더보기 &gt;
+          </Link>
+        </div>
         <div className="flex gap-4 overflow-auto pb-10">
-          {newsList.map((link, idx) => (
-            <div className="shrink-0 w-[296px] h-[296px] border border-primary-beige" key={idx}>
-              <Link href={link} target="_blank" rel="noopener noreferrer">
-                <Image src={`/assets/news/${idx + 1}.png`} alt="news image" width={296} height={296} />
+          {newsList.data.map(({ id, attributes }) => (
+            <div className="shrink-0 w-[296px] h-[296px] border border-primary-beige" key={`news-${id}`}>
+              <Link href={`/news/${id}`} target="_blank" rel="noopener noreferrer">
+                <img src={attributes.media.data[0].attributes.formats.small.url} alt={attributes.title} className="object-cover w-full h-full" />
               </Link>
             </div>
           ))}
@@ -91,7 +91,12 @@ const Home: NextPage<HomeProps> = ({ categories, updatedTrash }) => {
       </section>
       <hr className="h-4 bg-lightgrey-1 border-none" />
       <section className="section_common">
-        <h2 className="section_title">쓰레기 없는 가게</h2>
+        <div className="flex justify-between">
+          <h2 className="section_title">쓰레기 없는 가게</h2>
+          <Link href="/news" className="text-label1 text-darkgrey-2">
+            더보기 &gt;
+          </Link>
+        </div>
         <div className="flex gap-4 overflow-auto pb-6">
           {shopList.map((shop, idx) => (
             <div className="shrink-0 flex flex-col gap-2 items-center" key={idx}>
@@ -116,10 +121,13 @@ export async function getStaticProps() {
   const updatedTrashRes = await fetchAPI(
     "/trash-wikis?fields[0]=name&fields[0]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
   );
+  const newsList = await fetchAPI("/newsinfos?pagination[limit]=4&populate[0]=media&sort=id&pagination[start]=0");
+
   return {
     props: {
       categories: categoriesRes.data,
       updatedTrash: updatedTrashRes.data,
+      newsList: newsList, //todo : 미디어에서 첫번째 이미지만 리턴
     },
   };
 }

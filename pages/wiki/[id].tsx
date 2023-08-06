@@ -44,7 +44,7 @@ const WikiPage: NextPage<WikiProps> = ({ wiki }) => {
             </div>
           </div>
           {/* content */}
-          <div className="flex flex-col gap-4 xl:pt-[22px] px-2 py-6">
+          <div className="flex flex-col gap-4 xl:pt-[22px] px-4 py-6">
             <div className="p-4 md:flex flex-col gap-8 hidden">
               <div className="flex justify-between items-center">
                 <h1 className="text-display2 font-extrabold text-darkgrey-3">{wiki.name}</h1>
