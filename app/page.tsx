@@ -39,7 +39,7 @@ export default async function Page() {
         <div className="flex gap-4 overflow-auto pb-10">
           {newsList.data.map(({ id, attributes }) => (
             <div className="shrink-0 w-[296px] h-[296px] border border-primary-beige" key={`news-${id}`}>
-              <Link href={`/news/${id}`} target="_blank" rel="noopener noreferrer">
+              <Link href={`/news/${id}`}>
                 <img src={attributes.media.data[0].attributes.formats.small.url} alt={attributes.title} className="object-cover w-full h-full" />
               </Link>
             </div>
