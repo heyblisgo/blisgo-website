@@ -3,7 +3,7 @@ import Link from "next/link";
 const MobileHeader = () => {
   return (
     <>
-      <div className="border-t border-grey-1 z-30 bg-white fixed bottom-0 h-14 w-full flex justify-around p-2">
+      <div className="border-t border-grey-1 z-30 bg-white fixed bottom-0 h-14 w-full flex justify-around p-2 text-grey-2 text-label3">
         <button className="flex flex-col items-center">
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -14,7 +14,7 @@ const MobileHeader = () => {
               strokeLinecap="round"
             />
           </svg>
-          <Link className="pt-1 text-label3 text-primary-green" href="/">
+          <Link className="pt-1 text-primary-green" href="/">
             홈
           </Link>
         </button>
@@ -27,7 +27,7 @@ const MobileHeader = () => {
             />
             <path d="M1.99023 20.5V8.6582H7.27707V20.5H1.99023Z" stroke="#777777" strokeWidth="2" />
           </svg>
-          <Link className="pt-1 text-label3 text-darkgrey-3" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
+          <Link className="pt-1" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
             큐레이션
           </Link>
         </button>
@@ -41,7 +41,7 @@ const MobileHeader = () => {
               fill="#999999"
             />
           </svg>
-          <Link className="pt-1 text-label3 text-darkgrey-3" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
+          <Link className="pt-1" target="_blank" rel="noopener noreferrer" href="https://blisgo.com/community/">
             커뮤니티
           </Link>
         </button>
