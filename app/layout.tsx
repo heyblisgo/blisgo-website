@@ -32,10 +32,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col h-screen">
         <Header />
         <hr className="border-none bg-lightgrey-2 h-[1px]" />
-        {children}
+        <div className="flex-1">{children}</div>
         <Footer />
         <div className="md:hidden block h-[56px] bg-lightgrey-1">
           <MobileHeader />

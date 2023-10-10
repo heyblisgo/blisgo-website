@@ -19,36 +19,34 @@ export default async function Page() {
   }));
 
   return (
-    <>
-      <main className="xl:mx-[120px] xl:w-[1280px] md:mx-10 mx-4 2xl:mx-auto">
-        {categories.map((category, idx) => (
-          <article key={idx} className="md:pb-20 pt-6 pb-10">
-            <h2 id={String(category.id)} className="md:pb-10 pb-6 text-display3 font-extrabold" key={category.id}>
-              {category.name}
-            </h2>
-            <div className="mx-auto w-fit">
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
-                {category.trashWikis.map((item, idx) => (
-                  <Link key={idx} className="cursor-pointer" href={`wiki/${item.id}`}>
-                    <div className="bg-gray-400 w-20 h-20 rounded-full relative">
-                      <Image
-                        src={item.mediaData[0].attributes.formats.thumbnail.url}
-                        alt={item.name}
-                        fill
-                        className="absolute object-contain rounded-full"
-                        sizes="156px"
-                      />
-                    </div>
-                    <p key={idx} className="text-body2 text-darkgrey-3 text-center w-20 break-keep pt-1">
-                      {item.name}
-                    </p>
-                  </Link>
-                ))}
-              </div>
+    <main className="xl:mx-[120px] xl:w-[1280px] md:mx-10 mx-4 2xl:mx-auto">
+      {categories.map((category, idx) => (
+        <article key={idx} className="md:pb-20 pt-6 pb-10">
+          <h2 id={String(category.id)} className="md:pb-10 pb-6 text-display3 font-extrabold" key={category.id}>
+            {category.name}
+          </h2>
+          <div className="mx-auto w-fit">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
+              {category.trashWikis.map((item, idx) => (
+                <Link key={idx} className="cursor-pointer" href={`wiki/${item.id}`}>
+                  <div className="bg-gray-400 w-20 h-20 rounded-full relative">
+                    <Image
+                      src={item.mediaData[0].attributes.formats.thumbnail.url}
+                      alt={item.name}
+                      fill
+                      className="absolute object-contain rounded-full"
+                      sizes="156px"
+                    />
+                  </div>
+                  <p key={idx} className="text-body2 text-darkgrey-3 text-center w-20 break-keep pt-1">
+                    {item.name}
+                  </p>
+                </Link>
+              ))}
             </div>
-          </article>
-        ))}
-      </main>
-    </>
+          </div>
+        </article>
+      ))}
+    </main>
   );
 }
