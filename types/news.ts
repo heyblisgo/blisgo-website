@@ -18,8 +18,9 @@ export interface NewsList {
   data: News[];
   meta: {
     pagination: {
-      limit: number;
-      start: number;
+      page: number;
+      pageSize: number;
+      pageCount: number;
       total: number;
     };
   };

@@ -1,4 +1,4 @@
-import { News } from "@/app/news/page";
+import { News } from "@/types/news";
 import Link from "next/link";
 
 export const Article = ({ id, attributes }: News) => {

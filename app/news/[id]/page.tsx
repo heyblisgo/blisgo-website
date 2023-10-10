@@ -1,9 +1,10 @@
 import { Article } from "@/components/news/article";
 import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { fetchAPI } from "@/lib/api";
-import { News } from "@/types/news";
+import { News, NewsList } from "@/types/news";
+import Link from "next/link";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: { params: { id: number } }) {
   const news = await fetchAPI(`/newsinfos/${params.id}?populate[0]=media`);
 
   const data: News = {
@@ -11,6 +12,8 @@ export default async function Page({ params }: { params: { id: string } }) {
     // todo : contents에 \n 을 split
   };
   const { title, contents, published, media } = data.attributes;
+
+  const newsList: NewsList = await fetchAPI(`/newsinfos?populate[0]=media&sort=id&pagination[page]=1&pagination[pageSize]=3`);
 
   return (
     <>
@@ -29,9 +32,9 @@ export default async function Page({ params }: { params: { id: string } }) {
           {/* content */}
           <div className="flex flex-col gap-4 xl:pt-[22px] px-4 py-6">
             <div className="p-4 flex flex-col gap-8">
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-start">
                 <h1 className="text-display2 font-extrabold text-darkgrey-3">{title}</h1>
-                <div className="hidden md:block">
+                <div className="hidden md:block shrink-0">
                   <ShareButtonPC />
                 </div>
               </div>
@@ -41,25 +44,27 @@ export default async function Page({ params }: { params: { id: string } }) {
               <p className="text-darkgrey-2 text-label2">{published}</p>
             </div>
             {/* pagination */}
+            {/* todo : 마지막, 첫 페이지 예외처리 */}
             <div className="flex gap-2 self-end pt-6 max-md:w-full max-md:justify-between">
-              <button className="flex gap-1 btn bg-lightgrey-2 rounded-lg border-none max-md:flex-1">
-                <span>&lt;</span>
-                <span>이전글</span>
-              </button>
-              <button className="btn bg-white rounded-lg max-md:flex-1">목록보기</button>
-              <button className="flex gap-1 btn bg-lightgrey-2 rounded-lg border-none max-md:flex-1">
-                <span>다음글</span>
-                <span>&gt;</span>
-              </button>
+              <Link href={`/news/${params.id - 1}`} className="flex gap-1 btn bg-lightgrey-2 rounded-lg border-none max-md:flex-1">
+                &lt;이전글
+              </Link>
+              <Link href="/news" className="btn bg-white rounded-lg max-md:flex-1">
+                목록보기
+              </Link>
+              <Link href={`/news/${Number(params.id) + 1}`} className="flex gap-1 btn bg-lightgrey-2 rounded-lg border-none max-md:flex-1">
+                다음글 &gt;
+              </Link>
             </div>
           </div>
         </section>
         <section className="border-t border-lightgrey-2 pt-6 mx-4">
           <h1 className="font-bold text-title1 text-darkgrey-3">이 소식은 어때요?</h1>
           <div className="py-2 md:py-10 grid md:grid-cols-3 md:grid-rows-1 grid-cols-1 md:gap-y-10 gap-x-4 max-md:divide-y divide-lightgrey-2 overflow-auto">
-            {/* <Article />
-            <Article />
-            <Article /> */}
+            {/* todo: article to carousel */}
+            {newsList.data.map(({ id, attributes }) => (
+              <Article key={id} id={id} attributes={attributes} />
+            ))}
           </div>
         </section>
       </main>

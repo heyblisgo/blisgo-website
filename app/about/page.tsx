@@ -1,7 +1,7 @@
 "use client";
 import { FirstStack } from "../../components/about/stack";
 
-export const About = () => {
+export default function Page() {
   return (
     <>
       <main>
@@ -9,4 +9,4 @@ export const About = () => {
       </main>
     </>
   );
-};
+}

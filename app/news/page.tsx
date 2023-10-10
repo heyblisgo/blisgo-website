@@ -3,8 +3,16 @@ import { Article } from "@/components/news/article";
 import { fetchAPI } from "@/lib/api";
 import { NewsList } from "@/types/news";
 
-export default async function Page() {
-  const newsList: NewsList = await fetchAPI("/newsinfos?pagination[limit]=9&populate[0]=media&sort=id&pagination[start]=0");
+export interface SearchParams {
+  page?: number;
+  size?: number;
+}
+
+export default async function Page({ searchParams }: { searchParams: SearchParams }) {
+  const { page = 1, size = 9 } = searchParams;
+  const newsList: NewsList = await fetchAPI(`/newsinfos?populate[0]=media&sort=id&pagination[page]=${page}&pagination[pageSize]=${size}`);
+  const pageCount = newsList.meta.pagination.pageCount;
+
   return (
     <>
       <main className="md:mx-10 mx-4 md:mt-6 md:mb-20 mt-6 mb-8 md:px-6 md:py-4 xl:mx-auto xl:w-[1280px]">
@@ -16,7 +24,7 @@ export default async function Page() {
           ))}
         </section>
         <div className="flex justify-center">
-          <Pagination />
+          <Pagination link="news" itemsPerPage={size} pagesPerGroup={5} totalPages={pageCount} page={page} />
         </div>
       </main>
     </>
