@@ -10,7 +10,7 @@ const Footer = () => {
           <Image src="/assets/main-logo.svg" alt="main logo" width={132} height={63} />
         </div>
         <div className="flex gap-4 text-title3 text-darkgrey-2 font-bold">
-          <Link href="#" className="text-dark-green" target="_blank" rel="noopener noreferrer">
+          <Link href="/about" className="text-dark-green" rel="noopener noreferrer">
             앱 다운로드
           </Link>
           <Link href="#" className="flex items-center gap-1" target="_blank" rel="noopener noreferrer">
@@ -26,15 +26,15 @@ const Footer = () => {
             </div>
           </Link>
         </div>
-        <div className="flex xl:justify-between flex-col xl:flex-row gap-6">
-          <div className="flex items-center text-body3 text-darkgrey-1 shrink-0 flex-wrap w-full gap-x-2 flex-1 basis-1/2">
+        <div className="flex md:justify-between flex-col md:flex-row gap-6">
+          <div className="flex items-center text-body3 text-darkgrey-1 shrink-0 flex-wrap w-full gap-x-2 gap-y-2 flex-1 basis-1/2 max-w-[328px] xl:max-w-fit">
             {["블리스고 주식회사", "|", "대표 홍승규", "|", "전화 070-7717-9646", "|", "사업자번호 599-86-02235", "|", "이메일 heyblisgo@gmail.com"].map(
               (text, idx) => (
                 <span key={idx}>{text}</span>
               ),
             )}
           </div>
-          <div className="flex items-center text-label2 text-darkgrey-1 font-semibold gap-2">
+          <div className="flex items-center text-label2 text-darkgrey-1 font-semibold gap-2 md:self-end">
             <Link href="https://blisgo.com/terms-of-use/" target="_blank" rel="noopener noreferrer">
               서비스 이용약관
             </Link>
