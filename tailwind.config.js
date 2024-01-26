@@ -42,6 +42,7 @@ module.exports = {
       },
       boxShadow: {
         dropdown: "0px 0px 4px rgba(0, 0, 0, 0.25)",
+        innerLine: "inset 0 0 0 1px",
       },
       screens: {
         sm: "640px", //sm 이전 default - mobile
