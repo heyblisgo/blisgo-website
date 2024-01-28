@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { filter } from "lodash";
 import { useRef, useState } from "react";
 import { fetchAPI } from "@/lib/api";
 
@@ -10,9 +9,7 @@ const Header = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [noResult, setNoResult] = useState(false);
 
-  const searchRef = useRef();
-
-  const makeSearchRequest = async (e) => {
+  const makeSearchRequest = async (e: any) => {
     const text = e.target.value;
     setSearchText(text);
     if (text.length > 0) {
@@ -76,8 +73,8 @@ const Header = () => {
               <div className="w-full flex flex-col items-center justify-center gap-2">
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
                     d="M20 35.75C28.6985 35.75 35.75 28.6985 35.75 20C35.75 11.3015 28.6985 4.25 20 4.25C11.3015 4.25 4.25 11.3015 4.25 20C4.25 28.6985 11.3015 35.75 20 35.75ZM20 38C29.9411 38 38 29.9411 38 20C38 10.0589 29.9411 2 20 2C10.0589 2 2 10.0589 2 20C2 29.9411 10.0589 38 20 38Z"
                     fill="#777777"
                   />
@@ -96,7 +93,7 @@ const Header = () => {
                   <br />
                   &#183; 검색어의 상위 카테고리로 검색해보세요.
                   <br />
-                  &nbsp; <span className="text-grey-2">'냉장고', '신발'</span>
+                  &nbsp; <span className="text-grey-2">&#39;냉장고&#39;, &#39;신발&#39;</span>
                 </p>
               </div>
               <div className="w-full bg-lightgrey-2 rounded-lg p-4 flex flex-col gap-2 text-body3 text-darkgrey-2">
