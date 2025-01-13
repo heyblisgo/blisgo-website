@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { fetchAPI } from "@/lib/api";
 import useComponentVisible from "@/hooks/useComponentVisible";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [recommand, setRecommand] = useState<any>(undefined);
@@ -50,6 +50,17 @@ const Header = () => {
   useEffect(() => {
     setIsComponentVisible(false);
   }, [pathname]);
+
+  // 검색 인기품목 선택시 이동
+  const router = useRouter();
+  const navigateRecommandItem = async (itemName: string) => {
+    const { data: apiResult } = await fetchAPI(
+      `/trash-wikis?fields[0]=name&fields[0]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${itemName}`,
+    );
+    if (apiResult.length) {
+      router.push(`/wiki/${apiResult[0].id}`);
+    }
+  };
 
   return (
     <>
@@ -149,10 +160,13 @@ const Header = () => {
                     <div className="w-full bg-lightgrey-2 rounded-lg p-4 flex flex-col gap-2 text-body3 text-darkgrey-2">
                       <p>검색 인기 품목</p>
                       <div className="flex gap-2 ">
-                        {recommand?.slice(0, 6).map((data: any) => {
+                        {recommand?.slice(0, 6).map((data: string) => {
                           return (
                             <React.Fragment key={data}>
-                              <div className="w-fit px-2 py-1 shadow-innerLine shadow-darkgrey-2 rounded" onClick={() => console.log("농구공!!!")}>
+                              <div
+                                className="w-fit px-2 py-1 shadow-innerLine shadow-darkgrey-2 rounded cursor-pointer"
+                                onClick={() => navigateRecommandItem(data)}
+                              >
                                 <span>&#35;{data}</span>
                               </div>
                             </React.Fragment>

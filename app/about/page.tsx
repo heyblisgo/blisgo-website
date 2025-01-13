@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Page() {
   return (
-    <main className="gap-[205px] flex items-center h-full bg-primary-beige">
+    <main className="gap-[205px] flex justify-center items-center h-full bg-primary-beige">
       <div className="w-[291px] ml-[104px] flex flex-col justify-center gap-4">
         <span className="text-[32px] font-extrabold leading-10 text-darkgrey-1">
           분리배출이 더 쉬워지는 블리스고,

@@ -11,6 +11,7 @@
   "dependencies": {
     "classcat": "^5.0.4",
     "daisyui": "^2.51.3",
+    "jotai": "^2.8.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "^13.4.12",
