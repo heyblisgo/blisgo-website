@@ -28,7 +28,7 @@ const Header = () => {
     if (text.length > 0) {
       const formattedQuery = text.toLowerCase().split(" ").join("");
       const { data: apiresult } = await fetchAPI(
-        `/trash-wikis?fields[0]=name&fields[0]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${formattedQuery}`,
+        `/trash-wikis?fields[0]=name&fields[1]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${formattedQuery}`,
       );
       if (apiresult.length === 0) {
         setNoResult(true);
@@ -55,7 +55,7 @@ const Header = () => {
   const router = useRouter();
   const navigateRecommandItem = async (itemName: string) => {
     const { data: apiResult } = await fetchAPI(
-      `/trash-wikis?fields[0]=name&fields[0]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${itemName}`,
+      `/trash-wikis?fields[0]=name&fields[1]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${itemName}`,
     );
     if (apiResult.length) {
       router.push(`/wiki/${apiResult[0].id}`);
