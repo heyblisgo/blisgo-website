@@ -10,7 +10,7 @@ import { NewsList } from "@/types/news";
 export default async function Page() {
   const categoriesRes = await fetchAPI("/category-larges?sort=id");
   const updatedTrashRes = await fetchAPI(
-    "/trash-wikis?fields[0]=name&fields[0]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
+    "/trash-wikis?fields[0]=name&fields[1]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
   );
   const newsList: NewsList = await fetchAPI("/newsinfos?pagination[limit]=4&populate[0]=media&sort=id&pagination[start]=0");
 
