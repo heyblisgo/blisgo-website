@@ -2,6 +2,7 @@ import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { SortTrashButton } from "@/components/wiki/sort-trash";
 import { fetchAPI } from "@/lib/api";
 import { Wiki } from "@/types/wiki";
+import { Metadata } from "next";
 import Image from "next/image";
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -98,6 +99,40 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
     </main>
   );
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const response = await fetchAPI(`/trash-wikis/${id}?populate[0]=seo.metaImage`);
+
+  const trash = await response.data;
+  const { attributes } = trash;
+  const { seo: seoList } = attributes;
+  const seo = seoList[0];
+  return {
+    title: seo.metaTitle,
+    description: seo.metaDescription,
+    openGraph: {
+      type: "website",
+      locale: "ko_KR",
+      title: seo.metaTitle,
+      description: seo.metaDescription,
+      images: seo.metaImage.data
+        ? [
+            {
+              url: seo.metaImage.data.url,
+              width: 600,
+              height: 400,
+              alt: `${seo.metaTitle} image`,
+            },
+          ]
+        : "/assets/thumbnail.png",
+      siteName: "blisgo",
+    },
+    alternates: {
+      canonical: seo.canonicalURL,
+    },
+  };
 }
 
 /*

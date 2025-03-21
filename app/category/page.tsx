@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CategoryRes } from "@/types/category";
 
 export default async function Page() {
-  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[1]=trash_wikis.media")) as {
+  const categoriesRes = (await fetchAPI("/category-larges?sort=id&populate[1]=trash_wikis.media&populate[2]=trash_wikis.seo")) as {
     data: CategoryRes[];
   };
 
@@ -15,6 +15,7 @@ export default async function Page() {
       id: wiki.id,
       name: wiki.attributes.name,
       mediaData: wiki.attributes.media.data,
+      seo: wiki.attributes.seo,
     })),
   }));
 
@@ -28,7 +29,8 @@ export default async function Page() {
           <div className="mx-auto w-fit">
             <div className="grid grid-cols-3 md:grid-cols-6 gap-x-8 gap-y-10">
               {category.trashWikis.map((item, idx) => (
-                <Link key={idx} className="cursor-pointer" href={`wiki/${item.id}`}>
+                // <Link key={idx} className="cursor-pointer" href={`wiki/${item.id}?canonical=${item.seo[0].canonicalURL}`}>
+                <Link key={idx} className="cursor-pointer" href={`${item.seo[0].canonicalURL.replace("https://blisgo.com/", "")}?id=${item.id}`}>
                   <div className="bg-gray-400 w-20 h-20 rounded-full relative">
                     <Image
                       src={item.mediaData[0].attributes.formats.thumbnail.url}

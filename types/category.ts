@@ -28,6 +28,10 @@ export interface CategoryRes {
               };
             }[];
           };
+          seo: {
+            canonicalURL: string;
+            slug: string;
+          }[];
         };
       }[];
     };

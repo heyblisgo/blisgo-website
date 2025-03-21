@@ -6,6 +6,17 @@ import Link from "next/link";
 import { Category, UpdatedTrash } from "@/types/home";
 import { shopList } from "@/data/shopList";
 import { NewsList } from "@/types/news";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "블리스고",
+  description: "다양한 쓰레기 분리 배출법을 알아보세요",
+  openGraph: {
+    title: "블리스고",
+    description: "다양한 쓰레기 분리 배출법을 알아보세요",
+    images: ["/head-icon.svg"],
+  },
+};
 
 export default async function Page() {
   const categoriesRes = await fetchAPI("/category-larges?sort=id");
