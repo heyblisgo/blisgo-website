@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="p-4 md:flex flex-col gap-8 hidden">
             <div className="flex justify-between items-center">
               <h1 className="text-display2 font-extrabold text-darkgrey-3">{wiki.name}</h1>
-              <ShareButtonPC />
+              <ShareButtonPC item={wiki.name} />
             </div>
             <p className="text-title3 font-bold text-darkgrey-2">
               {wiki.tags.map((tag, idx) => (

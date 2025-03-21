@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
 
 export const ShareButtonMB = () => {
   return (
@@ -37,7 +38,7 @@ export const ShareButtonMB = () => {
   );
 };
 
-export const ShareButtonPC = () => {
+export const ShareButtonPC = ({ item }: { item?: string }) => {
   const [isToast, setIsToast] = useState(false);
 
   const copyURL = async () => {
@@ -64,8 +65,8 @@ export const ShareButtonPC = () => {
         <h2 className="text-title2 font-bold self-stretch w-full pb-4">공유하기</h2>
         {[
           { name: "카카오톡", icon: "kakao", href: "#", onClick: () => console.log("카카오톡") },
-          { name: "페이스북", icon: "facebook", href: "#", onClick: () => console.log("페이스북") },
-          { name: "트위터", icon: "twitter", href: "#", onClick: () => console.log("트위터") },
+          // { name: "페이스북", icon: "facebook", href: "#", onClick: () => console.log("페이스북") },
+          // { name: "트위터", icon: "twitter", href: "#", onClick: () => console.log("트위터") },
         ].map((item) => (
           <li className="h-fit w-fit" key={`share-${item.icon}`} onClick={item.onClick}>
             <a className="flex flex-col gap-1 p-1 text-label2 font-normal" href={item.href}>
@@ -74,6 +75,23 @@ export const ShareButtonPC = () => {
             </a>
           </li>
         ))}
+
+        <li className="h-fit w-fit hover:bg-lightgrey-2 rounded-md" key={`share-facebook`}>
+          <FacebookShareButton url={window.document.location.href} hashtag={`${item}_분리수거`}>
+            <div className=" flex flex-col gap-1 p-1 text-label2 font-normal">
+              <Image src={`/assets/sns/facebook.svg`} alt={`facebook icon`} width={40} height={40} />
+              {"페이스북"}
+            </div>
+          </FacebookShareButton>
+        </li>
+        <li className="h-fit w-fit hover:bg-lightgrey-2 rounded-md" key={`share-facebook`}>
+          <TwitterShareButton url={window.document.location.href} hashtags={[`${item}_분리수거`, `${item}_버리는법`]}>
+            <div className=" flex flex-col gap-1 p-1 text-label2 font-normal">
+              <Image src={`/assets/sns/twitter.svg`} alt={`twitter icon`} width={40} height={40} />
+              {"트위터"}
+            </div>
+          </TwitterShareButton>
+        </li>
         <li className="h-fit w-fit" key={"copy-link"} onClick={copyURL}>
           <div className="flex flex-col gap-1 p-1 text-label2 font-normal">
             <Image src={`/assets/sns/link.svg`} alt={`copy-link-icon`} width={40} height={40} />
