@@ -120,10 +120,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       images: seo.metaImage.data
         ? [
             {
-              url: seo.metaImage.data.url,
-              width: 600,
-              height: 400,
-              alt: `${seo.metaTitle} image`,
+              url: seo.metaImage.data.attributes.formats.small.url,
+              width: "auto",
+              height: "auto",
+              alt: `${seo.metaTitle}`,
             },
           ]
         : "/assets/thumbnail.png",
@@ -134,29 +134,3 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     },
   };
 }
-
-/*
-
-<NextSeo
-  title={wiki.name}
-  titleTemplate={"%s 분리수거"}
-  description={`${wiki.name} 분리수거 방법`}
-  canonical={"https://blisgo-website.vercel.app/"}
-  openGraph={{
-    type: "website",
-    locale: "ko_KR",
-    url: `https://blisgo-website.vercel.app/wiki/${wiki.id}`,
-    title: `${wiki.name} 분리수거`,
-    description: `${wiki.name} 분리수거 방법`,
-    images: [
-      {
-        url: wiki.image,
-        width: 600,
-        height: 400,
-        alt: `${wiki.name} image`,
-      },
-    ],
-    siteName: "blisgo",
-  }}
-/>;
-*/

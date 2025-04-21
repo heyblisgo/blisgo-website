@@ -10,11 +10,18 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "블리스고",
-  description: "다양한 쓰레기 분리 배출법을 알아보세요",
+  description: "쓰레기 백과사전, 다양한 쓰레기 분리 배출법을 알아보세요",
   openGraph: {
     title: "블리스고",
-    description: "다양한 쓰레기 분리 배출법을 알아보세요",
-    images: ["/head-icon.svg"],
+    description: "쓰레기 백과사전, 다양한 쓰레기 분리 배출법을 알아보세요",
+    images: [
+      {
+        url: "/assets/thumbnail.png",
+        width: 600,
+        height: 400,
+        alt: `블리스고 로고`,
+      },
+    ],
   },
 };
 
