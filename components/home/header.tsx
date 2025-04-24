@@ -28,7 +28,7 @@ const Header = () => {
     if (text.length > 0) {
       const formattedQuery = text.toLowerCase().split(" ").join("");
       const { data: apiresult } = await fetchAPI(
-        `/trash-wikis?fields[0]=name&fields[1]=tags&populate[media][fields][0]=url&pagination[pageSize]=1000&filters[tags][$contains]=${formattedQuery}`,
+        `/trash-wikis?fields[0]=name&fields[1]=tags&populate[media][fields][0]=url&populate[seo][fields][1]=canonicalURL&pagination[pageSize]=1000&filters[tags][$contains]=${formattedQuery}`,
       );
       if (apiresult.length === 0) {
         setNoResult(true);
@@ -105,7 +105,7 @@ const Header = () => {
                     {searchResult?.slice(0, 10).map((data: any) => {
                       return (
                         <React.Fragment key={data.id}>
-                          <Link href={`/wiki/${data.id}`}>
+                          <Link href={`${data.attributes.seo[0].canonicalURL.replace("https://blisgo.com/", "")}?id=${data.id}`}>
                             <div className="w-full flex items-center gap-2 px-2 hover:bg-lightgrey-2 text-darkgrey-2">
                               <svg
                                 width="17"
