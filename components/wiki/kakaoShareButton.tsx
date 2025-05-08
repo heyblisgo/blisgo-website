@@ -10,7 +10,7 @@ export interface ShareDataProps {
 }
 
 const KakaoShareButton = ({ shareData }: { shareData: ShareDataProps }) => {
-  const shareURL = typeof window !== "undefined" ? import.meta.url : "";
+  const shareURL = typeof window !== "undefined" ? window.document.location.href : import.meta.url;
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,6 +26,7 @@ const KakaoShareButton = ({ shareData }: { shareData: ShareDataProps }) => {
 
   const kakaoShareData = () => {
     const { Kakao } = window;
+    console.log(shareURL);
     Kakao.Share.sendDefault({
       objectType: "feed",
       content: {
