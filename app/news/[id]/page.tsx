@@ -14,6 +14,12 @@ export default async function Page({ params }: { params: { id: number } }) {
 
   const { title, contents, published, media } = newsDetail.attributes;
 
+  const shareData = {
+    title: title,
+    description: contents,
+    imageUrl: media.data[0].attributes.formats.small.url,
+  };
+
   const newsList: NewsList = await fetchAPI(`/newsinfos?populate[0]=media&sort=id&pagination[page]=1&pagination[pageSize]=4`);
 
   return (
@@ -34,7 +40,7 @@ export default async function Page({ params }: { params: { id: number } }) {
             <div className="flex justify-between items-start">
               <h1 className="text-display2 font-extrabold text-darkgrey-3">{title}</h1>
               <div className="hidden md:block shrink-0">
-                <ShareButtonPC />
+                <ShareButtonPC item={title} shareData={shareData} />
               </div>
             </div>
           </div>
