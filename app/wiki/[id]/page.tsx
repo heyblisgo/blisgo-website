@@ -27,6 +27,12 @@ export default async function Page({ params }: { params: { id: string } }) {
     },
   };
 
+  const shareData = {
+    title: attributes.name,
+    description: attributes.tags,
+    imageUrl: attributes.media.data[0].attributes.formats.small.url,
+  };
+
   return (
     <main className="xl:mx-[120px] md:mx-auto md:px-6 md:py-4 flex flex-col gap-y-12 bg-lightgrey-1 md:bg-inherit">
       <section className="justify-center grid grid-cols-1 md:grid-cols-2 gap-x-4 w-full md:max-w-[992px] md:mx-auto">
@@ -43,7 +49,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="p-4 md:flex flex-col gap-8 hidden">
             <div className="flex justify-between items-center">
               <h1 className="text-display2 font-extrabold text-darkgrey-3">{wiki.name}</h1>
-              <ShareButtonPC item={wiki.name} />
+              <ShareButtonPC item={wiki.name} shareData={shareData} />
             </div>
             <p className="text-title3 font-bold text-darkgrey-2">
               {wiki.tags.map((tag, idx) => (

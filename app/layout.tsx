@@ -5,6 +5,7 @@ import Footer from "../components/home/footer";
 import MobileHeader from "../components/home/mobile-header";
 
 import { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "blisgo",
@@ -28,6 +29,12 @@ export const metadata: Metadata = {
 };
 // ref) https://nextjs.org/docs/app/api-reference/functions/generate-metadata
 // ref) https://velog.io/@henrynoowah/Next.js-v13.2-Feature-Metadata
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
