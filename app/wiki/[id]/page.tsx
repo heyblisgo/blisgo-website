@@ -41,7 +41,8 @@ export default async function Page({ params }: { params: { id: string } }) {
           <Image src={wiki.image} fill className="aspect-square md:rounded-2xl" alt={`${wiki.name}`} />
           <div className="absolute flex justify-between bottom-0 items-center w-full px-5 pb-5">
             <SortTrashButton name={wiki.sort.name} description={wiki.sort.description} image={wiki.sort.image} />
-            <ShareButtonMB />
+            {/* <ShareButtonMB /> */}
+            <ShareButtonPC item={wiki.name} shareData={shareData} />
           </div>
         </div>
         {/* content */}
