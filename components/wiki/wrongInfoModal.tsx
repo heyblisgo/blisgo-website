@@ -23,7 +23,7 @@ export default function WrongInfoModal({ id }: { id: string }) {
 
     const { requestName, returnEmail, editRequest } = event.currentTarget;
     if (!requestName.value || requestName.value === "") {
-      setRequireErrors((prev) => ({ ...prev, name: true }));
+      setRequireErrors((prev) => ({ ...prev, requestName: true }));
       return;
     }
     if (!returnEmail.value || returnEmail.value === "") {
