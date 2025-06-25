@@ -64,7 +64,7 @@ export default function WrongInfoModal({ id }: { id: string }) {
         <div className="toast toast-center z-[100] w-full">
           <form
             onSubmit={onSubmitHandler}
-            className="w-3/6 max-w-[36rem] m-auto h-auto px-6 py-6 flex flex-col justify-start items-center gap-3 bg-white rounded-lg shadow-lg border border-lightgrey-1"
+            className="w-full max-w-[36rem] sm:w-3/6 m-auto h-auto px-6 py-6 flex flex-col justify-start items-center gap-3 bg-white rounded-lg shadow-lg border border-lightgrey-1"
           >
             <div className="flex w-full justify-end">
               <button
