@@ -5,6 +5,9 @@ const nextConfig = {
     loader: "default",
     domains: ["localhost", "blisgo-file.s3.ap-northeast-2.amazonaws.com"],
   },
-}
+  experimental: {
+    serverActions: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

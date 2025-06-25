@@ -43,7 +43,7 @@ export const ShareButtonPC = ({ item, shareData }: { item?: string; shareData: S
   const [isToast, setIsToast] = useState(false);
 
   const copyURL = async () => {
-    const currentUrl = window.document.location.href;
+    const currentUrl = decodeURI(window.document.location.href);
     try {
       await navigator.clipboard.writeText(currentUrl);
       setIsToast(true);
@@ -92,8 +92,8 @@ export const ShareButtonPC = ({ item, shareData }: { item?: string; shareData: S
         </li>
       </ul>
       {isToast && (
-        <div className="toast toast-center z-[100]">
-          <div className="w-[586px] h-[52px] px-6 py-4 flex justify-start items-center gap-3 bg-darkgrey-3 rounded-lg">
+        <div className="toast toast-center z-[100] w-full">
+          <div className="w-4/6 max-w-[36rem] m-auto h-[3.5rem] px-6 py-4 flex justify-start items-center gap-3 bg-darkgrey-3 rounded-lg">
             <div className="text-white text-sm">
               <span>링크가 복사되었습니다.</span>
             </div>

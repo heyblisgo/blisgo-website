@@ -26,7 +26,7 @@ const KakaoShareButton = ({ shareData }: { shareData: ShareDataProps }) => {
 
   const kakaoShareData = () => {
     const { Kakao } = window;
-    console.log(shareURL);
+
     Kakao.Share.sendDefault({
       objectType: "feed",
       content: {

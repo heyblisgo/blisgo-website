@@ -1,5 +1,6 @@
 import { ShareButtonPC, ShareButtonMB } from "@/components/wiki/share";
 import { SortTrashButton } from "@/components/wiki/sort-trash";
+import WrongInfoModal from "@/components/wiki/wrongInfoModal";
 import { fetchAPI } from "@/lib/api";
 import { Wiki } from "@/types/wiki";
 import { Metadata } from "next";
@@ -100,9 +101,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </section>
       <div className="flex flex-col gap-y-2 items-center mb-[88px]">
         <p className="text-darkgrey-2 text-label2">잘못된 정보가 있나요?</p>
-        <button className="bg-primary-green rounded-lg w-20 h-12 flex justify-center items-center">
-          <Image src="/assets/icon/info.svg" alt="wrong info icon" width={20} height={20} />
-        </button>
+        <WrongInfoModal id={wiki.id} />
       </div>
     </main>
   );
