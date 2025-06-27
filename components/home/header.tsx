@@ -44,7 +44,6 @@ const Header = () => {
   };
 
   const makeSearchReset = () => {
-    console.log("리셋해줘...");
     setSearchText("");
     setSearchResult([]);
     setNoResult(false);
@@ -74,6 +73,12 @@ const Header = () => {
 
   const mobileSearchHandler = () => {
     setIsMobileSearch(true);
+  };
+
+  const blurSetButtonHandler = () => {
+    setTimeout(() => {
+      setIsMobileSearch(false);
+    }, 5000);
   };
 
   return (
@@ -240,6 +245,7 @@ const Header = () => {
                   className="w-full outline-none caret-yellow-green font-normal text-body1 text-grey-2 focus:caret-darkgrey-2 focus:text-darkgrey-2"
                   value={searchText}
                   onChange={makeSearchRequest}
+                  onBlur={blurSetButtonHandler}
                 />
               </div>
               {isComponentVisible && (
