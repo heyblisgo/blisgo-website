@@ -15,5 +15,9 @@ export interface UpdatedTrash {
         };
       }[];
     };
+    seo: {
+      id: number;
+      canonicalURL: string;
+    }[];
   };
 }

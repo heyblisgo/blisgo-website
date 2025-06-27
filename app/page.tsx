@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   const categoriesRes = await fetchAPI("/category-larges?sort=id");
   const updatedTrashRes = await fetchAPI(
-    "/trash-wikis?fields[0]=name&fields[1]=updatedAt&populate[media][fields][0]=url&sort[0]=updatedAt:desc&pagination[limit]=10",
+    "/trash-wikis?fields[0]=name&fields[1]=updatedAt&populate[media][fields][0]=url&populate[seo][fields][0]=canonicalURL&sort[0]=updatedAt:desc&pagination[limit]=10",
   );
   const newsList: NewsList = await fetchAPI("/newsinfos?pagination[limit]=4&populate[0]=media&sort=id&pagination[start]=0");
 
@@ -40,7 +40,7 @@ export default async function Page() {
       {/* hero section, search bar, popular keyword, */}
       <Hero />
       <section className="section_common mt-0">
-        <div className="grid grid-cols-6 md:grid-cols-11 gap-4 justify-between overflow-auto pb-6">
+        <div className="grid grid-cols-6 md:grid-cols-11 gap-4 justify-between pb-6">
           {categories.map((category) => (
             <Item key={category.id} id={category.id} categoryName={category.attributes.name} />
           ))}
@@ -69,7 +69,11 @@ export default async function Page() {
         <h2 className="section_title">업데이트된 쓰레기</h2>
         <div className="flex gap-4 overflow-auto pb-10">
           {updatedTrash.map((trash, idx) => (
-            <a className="flex flex-col items-center gap-1" key={`updated-trash-${idx}`} href={`/wiki/${trash.id}`}>
+            <a
+              className="flex flex-col items-center gap-1"
+              key={`updated-trash-${idx}`}
+              href={`${trash.attributes.seo[0].canonicalURL.replace("https://blisgo.com/", "")}?id=${trash.id}`}
+            >
               <div className="shrink-0 w-[48px] h-[48px] md:w-[160px] md:h-[160px] border border-lightgrey-3 rounded-lg relative">
                 <Image
                   src={trash.attributes.media.data[0].attributes.url}

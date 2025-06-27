@@ -42,8 +42,10 @@ export const ShareButtonMB = () => {
 export const ShareButtonPC = ({ item, shareData }: { item?: string; shareData: ShareDataProps }) => {
   const [isToast, setIsToast] = useState(false);
 
+  const currentUrl = decodeURI(window.document.location.href);
+
   const copyURL = async () => {
-    const currentUrl = decodeURI(window.document.location.href);
+    // const currentUrl = decodeURI(window.document.location.href);
     try {
       await navigator.clipboard.writeText(currentUrl);
       setIsToast(true);
@@ -69,7 +71,7 @@ export const ShareButtonPC = ({ item, shareData }: { item?: string; shareData: S
         </li>
 
         <li className="h-fit w-fit hover:bg-lightgrey-2 rounded-md" key={`share-facebook`}>
-          <FacebookShareButton url={window.document.location.href} hashtag={`${item}_분리수거`}>
+          <FacebookShareButton url={currentUrl} hashtag={`${item}_분리수거`}>
             <div className=" flex flex-col gap-1 p-1 text-label2 font-normal">
               <Image src={`/assets/sns/facebook.svg`} alt={`facebook icon`} width={40} height={40} />
               {"페이스북"}
@@ -77,7 +79,7 @@ export const ShareButtonPC = ({ item, shareData }: { item?: string; shareData: S
           </FacebookShareButton>
         </li>
         <li className="h-fit w-fit hover:bg-lightgrey-2 rounded-md" key={`share-facebook`}>
-          <TwitterShareButton url={window.document.location.href} hashtags={[`${item}_분리수거`, `${item}_버리는법`]}>
+          <TwitterShareButton url={currentUrl} hashtags={[`${item}_분리수거`, `${item}_버리는법`]}>
             <div className=" flex flex-col gap-1 p-1 text-label2 font-normal">
               <Image src={`/assets/sns/twitter.svg`} alt={`twitter icon`} width={40} height={40} />
               {"트위터"}
